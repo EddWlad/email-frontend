@@ -1,0 +1,36 @@
+<mat-dialog-content>
+  <mat-toolbar>
+    <span>Supplier Info</span>
+  </mat-toolbar>
+
+<div class="example-container">
+  <div [hidden]="true">
+    <mat-form-field>
+      <input matInput placeholder="ID" [(ngModel)]="supplier.id" name="idSupplier">
+    </mat-form-field>
+  </div>
+  <mat-form-field>
+    <input matInput placeholder="Ruc" [(ngModel)]="supplier.ruc">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Name" [(ngModel)]="supplier.name">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Email" [(ngModel)]="supplier.email">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Status" [(ngModel)]="supplier.status">
+  </mat-form-field>
+
+  <!--@if(supplier.photo){
+    <img mat-card-image [src] = "supplier.foto" alt="Photo of supplier">
+  }-->
+
+  <mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile><button mat-raised-button color="primary" (click)="operate()">Done</button></mat-grid-tile>
+    <mat-grid-tile><button mat-raised-button color="accent" (click)="close()">Cancel</button></mat-grid-tile>
+  </mat-grid-list>
+
+</div>
+
+</mat-dialog-content>
