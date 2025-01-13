@@ -14,7 +14,9 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatGridListModule} from '@angular/material/grid-list';
-
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatSelectModule} from '@angular/material/select';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 
 @NgModule({
@@ -36,7 +38,10 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MatPaginatorModule,
     MatSortModule,
     MatDialogModule,
-    MatGridListModule
+    MatGridListModule,
+    MatStepperModule,
+    MatSelectModule,
+    MatExpansionModule
   ]
 })
 export class MaterialModule { }

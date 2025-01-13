@@ -3,7 +3,7 @@ import { ProjectService } from '../../../service/project.service';
 import { Project } from '../../model/project';
 import { MaterialModule } from '../../material/material.module';
 import { MatTableDataSource } from '@angular/material/table';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { switchMap } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
@@ -18,15 +18,16 @@ import { MatSort } from '@angular/material/sort';
 })
 export class ProjectComponent implements OnInit {
 
-  //projects: Project[];
   dataSource: MatTableDataSource<Project>;
   displayedColumns: string[] = ['id', 'name', 'company', 'description', 'status', 'actions'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+
   constructor(
     private projectService: ProjectService,
-    private _snackBar: MatSnackBar) { }
+    private _snackBar: MatSnackBar,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.projectService.findAll().subscribe(data => {
@@ -60,6 +61,10 @@ export class ProjectComponent implements OnInit {
 
   applyFilter(e: any) {
     this.dataSource.filter = e.target.value.trim();
+  }
+
+  checkChildren(): boolean{
+    return this.route.children.length > 0;
   }
 
 }

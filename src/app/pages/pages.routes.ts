@@ -6,6 +6,9 @@ import { ProjectEditComponent } from "./project/project-edit/project-edit.compon
 import { PaymentComponent } from "./payment/payment.component";
 import { RecipientsComponent } from "./recipients/recipients.component";
 import { PaymentEditComponent } from "./payment/payment-edit/payment-edit.component";
+import { RecipientsEditComponent } from "./recipients/recipients-edit/recipients-edit.component";
+import { MailingGroupComponent } from "./mailing-group/mailing-group.component";
+import { MailingGroupEditComponent } from "./mailing-group/mailing-group-edit/mailing-group-edit.component";
 
 export const pagesRoutes: Routes = [
   {
@@ -18,6 +21,7 @@ export const pagesRoutes: Routes = [
   },
 
   {path: 'supplier', component: SupplierComponent},
+
   {
     path: 'payment',
     component: PaymentComponent,
@@ -26,5 +30,21 @@ export const pagesRoutes: Routes = [
       {path: 'edit/:id', component: PaymentEditComponent},
     ],
   },
-  {path: 'recipients', component: RecipientsComponent}
+
+  {
+    path: 'recipients',
+    component: RecipientsComponent,
+    children:[
+      {path: 'new', component: RecipientsEditComponent},
+      {path: 'edit/:id', component: RecipientsEditComponent},
+    ]
+  },
+
+  {path: 'mailingGroup',
+    component: MailingGroupComponent,
+    children:[
+      {path: 'new', component: MailingGroupEditComponent},
+      {path: 'edit/:id', component: MailingGroupEditComponent},
+    ]
+  },
 ];

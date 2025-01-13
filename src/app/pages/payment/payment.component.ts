@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MaterialModule } from '../../material/material.module';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
 import { PaymentAgreement } from '../../model/paymentAgreement';
 import { MatTableDataSource } from '@angular/material/table';
 import { PaymentService } from '../../../service/payment.service';
@@ -58,6 +57,5 @@ export class PaymentComponent implements OnInit {
 
     checkChildren(): boolean{
       return this.route.children.length > 0;
-
     }
 }

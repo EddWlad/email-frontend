@@ -1,0 +1,77 @@
+<form [formGroup]="form" class="example-container" (submit)="operate()">
+  <div [hidden]="true">
+    <mat-form-field>
+      <input matInput placeholder="ID" required formControlName="idMailingGroup">
+    </mat-form-field>
+  </div>
+
+  <mat-form-field>
+    <input matInput placeholder="Name" required formControlName="nameGroup">
+    @if(f['nameGroup'].errors?.['required'] && f['nameGroup'].touched){
+      <small class="invalid">Is required</small>
+    }
+    @if(f['nameGroup'].errors?.['minlength'] && f['nameGroup'].touched){
+      <small class="invalid">Minlength is 3</small>
+    }
+  </mat-form-field>
+
+  <div>
+    <div >
+      <mat-form-field>
+        <mat-label>Destinatarios</mat-label>
+        <mat-select formControlName="recipientIds">
+          @for (r of recipients; track $index){
+          <mat-option [value]="r">{{r.name}} {{r.lastName}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <button mat-button type="button" color="primary" (click)="addRecipient()">
+        <mat-icon>add</mat-icon>
+        Añadir Destinatario
+      </button>
+    </div>
+  </div>
+
+  @for(o of objDestinataries; track $index){
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{$index + 1}} {{o.name}} {{o.lastName}}
+      </mat-panel-title>
+      <mat-panel-description> Ver datos</mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-form-field>
+      <textarea matInput placeholder="Datos" value="{{o.email}}"></textarea>
+    </mat-form-field>
+    <button mat-button type="button" color="warn" (click)="removeContact($index)">
+      <mat-icon>delete</mat-icon>
+      Borrar Destinatario
+    </button>
+  </mat-expansion-panel>
+}
+
+
+  <mat-form-field>
+    <input matInput placeholder="Description" required formControlName="description">
+    @if(f['description'].errors?.['required'] && f['description'].touched){
+      <small class="invalid">Is required</small>
+    }
+    @if(f['description'].errors?.['minlength'] && f['description'].touched){
+      <small class="invalid">Minlength is 3</small>
+    }
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Status" required formControlName="status">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit">
+    <mat-icon>done</mat-icon>
+    <span>Done</span>
+  </button>
+
+  <button mat-raised-button color="accent" type="button" routerLink="/pages/mailingGroup">
+    <mat-icon>cancel</mat-icon>
+    <span>Cancel</span>
+  </button>
+
+</form>

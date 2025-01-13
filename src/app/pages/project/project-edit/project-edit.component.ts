@@ -16,6 +16,7 @@ export class ProjectEditComponent implements OnInit {
   form: FormGroup;
   id: number;
   isEdit: boolean;
+  invalid: any;
 
   private route = inject(ActivatedRoute);
   private projectService = inject(ProjectService);

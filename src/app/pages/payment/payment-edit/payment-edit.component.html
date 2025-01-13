@@ -7,9 +7,21 @@
 
   <mat-form-field>
     <input matInput placeholder="Name" required formControlName="name">
+    @if(f['name'].errors?.['required'] && f['name'].touched){
+      <small class="invalid">Is required</small>
+    }
+    @if(f['name'].errors?.['minlength'] && f['name'].touched){
+      <small class="invalid">Minlength is 3</small>
+    }
   </mat-form-field>
   <mat-form-field>
     <input matInput placeholder="Description" required formControlName="description">
+    @if(f['description'].errors?.['required'] && f['description'].touched){
+      <small class="invalid">Is required</small>
+    }
+    @if(f['description'].errors?.['minlength'] && f['description'].touched){
+      <small class="invalid">Minlength is 3</small>
+    }
   </mat-form-field>
   <mat-form-field>
     <input matInput placeholder="Status" required formControlName="status">

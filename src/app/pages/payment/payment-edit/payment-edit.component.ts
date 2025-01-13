@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MaterialModule } from '../../../material/material.module';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PaymentService } from '../../../../service/payment.service';
 import { PaymentAgreement } from '../../../model/paymentAgreement';
@@ -16,18 +16,19 @@ export class PaymentEditComponent implements OnInit {
   form: FormGroup;
   id: number;
   isEdit: boolean;
+  invalid: any;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private routeParam: ActivatedRoute,
     private paymentService: PaymentService
   ) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
       idPayment: new FormControl(0),
-      name: new FormControl(''),
-      description: new FormControl(''),
+      name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      description: new FormControl('', [Validators.required, Validators.minLength(3)]),
       status: new FormControl('')
     });
 
@@ -43,15 +44,17 @@ export class PaymentEditComponent implements OnInit {
       this.paymentService.findById(this.id).subscribe(data => {
         this.form = new FormGroup({
           idPayment: new FormControl(data.idPayment),
-          name: new FormControl(data.name),
-          description: new FormControl(data.description),
+          name: new FormControl(data.name, [Validators.required, Validators.minLength(3)]),
+          description: new FormControl(data.description, [Validators.required, Validators.minLength(3)]),
           status: new FormControl(data.status)
         });
       });
     }
   }
   operate() {
-    const payment = new PaymentAgreement();
+    if(this.invalid){return;}
+    const payment: PaymentAgreement = new PaymentAgreement();
+
     payment.idPayment = this.form.value['idPayment'];
     payment.name = this.form.value['name'];
     payment.description = this.form.value['description'];
@@ -75,6 +78,10 @@ export class PaymentEditComponent implements OnInit {
           });
         }
         this.router.navigate(['/pages/payment']);
+  }
+
+  get f(){
+    return this.form.controls;
   }
 
 }
