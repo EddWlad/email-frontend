@@ -1,0 +1,129 @@
+<mat-horizontal-stepper #stepper>
+
+  <mat-step>
+
+    <div class="form-container">
+      <ng-template matStepLabel>Mail</ng-template>
+      <form [formGroup]="firstFormGroup">
+
+        <mat-form-field>
+          <mat-label>Destinatario</mat-label>
+          <mat-select formControlName="idRecipients">
+            @for(c of recipients; track $index){
+            <mat-option [value]="c">{{c.name}}</mat-option>
+          }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Grupo Copia (CC)</mat-label>
+          <mat-select formControlName="mailingGroup">
+            @for(m of mailingGroup; track $index){
+            <mat-option [value]="m">{{m.nameGroup}}</mat-option>
+          }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Factura" required formControlName="bill">
+          @if(f['bill'].errors?.['required'] && f['bill'].touched){
+            <small class="invalid">Is required</small>
+          }
+          @if(f['bill'].errors?.['minlength'] && f['bill'].touched){
+            <small class="invalid">Minlength is 3</small>
+          }
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Prioridad" required formControlName="priority">
+          @if(f['priority'].errors?.['required'] && f['priority'].touched){
+            <small class="invalid">Is required</small>
+          }
+          @if(f['priority'].errors?.['minlength'] && f['priority'].touched){
+            <small class="invalid">Minlength is 3</small>
+          }
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Proveedor</mat-label>
+          <mat-select formControlName="supplier">
+            @for(s of supplier; track $index){
+            <mat-option [value]="s">{{s.name}}</mat-option>
+          }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Proyecto</mat-label>
+          <mat-select formControlName="project">
+            @for(r of project; track $index){
+            <mat-option [value]="r">{{r.name}}</mat-option>
+          }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Acuerdo Pago</mat-label>
+          <mat-select formControlName="paymentAgreement">
+            @for(y of paymentAgreement$ | async ; track $index){
+            <mat-option [value]="y">{{y.name}}</mat-option>
+          }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Fecha</mat-label>
+          <input matInput [matDatepicker]="picker" [min]="minDate" formControlName="dateCreate">
+          <mat-hint>DD/MM/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+
+        <mat-form-field>
+          <input matInput placeholder="Observaciones" required formControlName="observation">
+          @if(f['observation'].errors?.['required'] && f['observation'].touched){
+            <small class="invalid">Is required</small>
+          }
+          @if(f['observation'].errors?.['minlength'] && f['observation'].touched){
+            <small class="invalid">Minlength is 3</small>
+          }
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Status" required formControlName="status">
+        </mat-form-field>
+
+        <button mat-raised-button class="fixedRigth" color="primary" type="button" style="float: right" (click)="nextManualStep()">Next</button>
+        <button mat-raised-button color="primary" type="button" (click)="save()">Save Mail</button>
+
+      </form>
+    </div>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Attachments</ng-template>
+    <form [formGroup]="secondFormGroup">
+
+
+      <button mat-raised-button class="fixedLeft" color="primary" type="button" style="float: left" matStepperPrevious>Previous</button>
+      <button mat-raised-button class="fixedRigth" color="primary" type="button" style="float: right" matStepperNext>Next</button>
+
+    </form>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Review</ng-template>
+
+    <h3>Destinatary: {{f['idRecipients']?.value?.name + '' + f['idRecipients']?.value?.lastName}}</h3>
+    <h3>Mailing Group (CC): {{f['mailingGroup']?.value?.nameGroup}}</h3>
+    <h3>Bill: {{f['bill']?.value}}</h3>
+    <h3>Priority: {{f['priority']?.value}}</h3>
+    <h3>Supplier: {{f['supplier']?.value?.name}}</h3>
+    <h3>Project: {{f['project']?.value?.name}}</h3>
+    <h3>Payment Agreement: {{f['paymentAgreement']?.value?.description}}</h3>
+    <h3>Observation: {{f['observation']?.value}}</h3>
+
+    <button mat-raised-button class="fixedLeft" color="primary" type="button" style="float: left" matStepperPrevious>Previous</button>
+  </mat-step>
+
+</mat-horizontal-stepper>

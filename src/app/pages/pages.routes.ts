@@ -9,6 +9,7 @@ import { PaymentEditComponent } from "./payment/payment-edit/payment-edit.compon
 import { RecipientsEditComponent } from "./recipients/recipients-edit/recipients-edit.component";
 import { MailingGroupComponent } from "./mailing-group/mailing-group.component";
 import { MailingGroupEditComponent } from "./mailing-group/mailing-group-edit/mailing-group-edit.component";
+import { MailComponent } from "./mail/mail.component";
 
 export const pagesRoutes: Routes = [
   {
@@ -21,6 +22,8 @@ export const pagesRoutes: Routes = [
   },
 
   {path: 'supplier', component: SupplierComponent},
+
+  {path: 'mail', component: MailComponent},
 
   {
     path: 'payment',
