@@ -13,7 +13,8 @@ export class Mail{
   supplier: Supplier;
   project: Project;
   paymentAgreement: PaymentAgreement;
-  dateCreate: string;
+  dateCreate: string | Date;
   observation: string;
+  attachments: Attachments[];
   status: number;
 }

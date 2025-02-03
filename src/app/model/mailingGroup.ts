@@ -1,7 +1,7 @@
 import { Recipients } from "./recipients";
 
 export class MailingGroup{
-  idMailingGroup: number = 0;
+  id: number = 0;
   nameGroup: string;
   recipientIds: number[];
   recipientNames: string[];

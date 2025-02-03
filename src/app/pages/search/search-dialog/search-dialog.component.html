@@ -1,0 +1,32 @@
+<mat-dialog-content>
+  <h2 class="mat-h2">Date: {{mail.dateCreate | date: 'dd-MM-yyyy'}} | Bill: {{mail.bill}}</h2>
+  <h3>Destinatary: {{mail.idRecipients}}</h3>
+
+  <mat-card-header>
+    <mat-card-title>DESTINATARIES:</mat-card-title>
+  </mat-card-header>
+  @for (g of destinatary.recipientNames; track g) {
+    <mat-card>
+      <mat-card-content>
+        <h3>{{ g }}</h3>
+      </mat-card-content>
+    </mat-card>
+  }
+
+  <h3>Project: {{mail.project.name}}</h3>
+  <h3>Payment Agreement: {{mail.paymentAgreement.description}}</h3>
+
+  <mat-card-header>
+    <mat-card-title>ATTACHMENTS:</mat-card-title>
+  </mat-card-header>
+  @for (det of mail.attachments; track $index){
+    <mat-card>
+      <mat-card-content>
+        <mat-icon>attach_file</mat-icon>
+        <h3>{{det.routeAttachment}}</h3>
+      </mat-card-content>
+    </mat-card>
+  }
+
+  <h3>Observations: {{mail.observation}}</h3>
+</mat-dialog-content>

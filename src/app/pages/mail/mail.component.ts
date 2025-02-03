@@ -15,7 +15,7 @@ import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { MatStepper } from '@angular/material/stepper';
 import { Mail } from '../../model/mail';
-import { format, formatISO } from 'date-fns';
+import { format } from 'date-fns';
 import { MailService } from '../../../service/mail.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -35,6 +35,9 @@ export class MailComponent implements OnInit{
   recipients: Recipients[] = [];
   destinataries: number[] = [];
   objDestinataries: Recipients[] =[];
+
+  uploadedFiles: File[] = [];
+  mailId: number;
 
   mailingGroup: MailingGroup[] = [];
   supplier: Supplier[] = [];
@@ -80,7 +83,25 @@ export class MailComponent implements OnInit{
 
     });
 
+
     this.loadInitialData();
+  }
+
+  onDragOver(event: DragEvent) {
+    event.preventDefault();
+  }
+
+  onDragLeave(event: DragEvent) {
+    event.preventDefault();
+  }
+
+  onDrop(event: DragEvent) {
+    event.preventDefault();
+    if (event.dataTransfer?.files) {
+      for (let i = 0; i < event.dataTransfer.files.length; i++) {
+        this.uploadedFiles.push(event.dataTransfer.files[i]);
+      }
+    }
   }
 
   loadInitialData(){
@@ -103,9 +124,7 @@ export class MailComponent implements OnInit{
     return object.id;
   }
 
-  get f(){
-    return this.firstFormGroup.controls;
-  }
+
 
   nextManualStep(){
     if(this.saved){
@@ -114,6 +133,53 @@ export class MailComponent implements OnInit{
 
     }
   }
+
+onFileSelected(event: any) {
+  const files = event.target.files;
+  for (let i = 0; i < files.length; i++) {
+    this.uploadedFiles.push(files[i]);
+  }
+}
+
+removeFile(index: number) {
+  this.uploadedFiles.splice(index, 1);
+}
+
+uploadFiles() {
+  if (this.uploadedFiles.length === 0) {
+    console.warn("No hay archivos para subir");
+    return;
+  }
+
+  if (!this.mailId) {
+    console.error("Error: mailId no está definido");
+    return;
+  }
+
+  const formData = new FormData();
+  this.uploadedFiles.forEach(file => {
+    formData.append("files", file);
+  });
+
+  this.mailService.uploadAttachments(this.mailId, formData).subscribe({
+    next: (response) => {
+      console.log("Archivos subidos con éxito:", response);
+
+      this.mailService.findById(this.mailId).subscribe(mail => {
+        this.mailSaved = mail;
+      });
+
+    },
+    error: (err) => {
+      console.error("Error al subir archivos:", err);
+    }
+  });
+
+  setTimeout(() => {
+    this.mailService.setMessageChange('UPLOADED FILES!');
+    this.nextManualStep();
+  }, 2000);
+}
 
   save(){
     const mail: Mail = new Mail();
@@ -132,14 +198,22 @@ export class MailComponent implements OnInit{
     mail.observation = this.firstFormGroup.value['observation'];
     mail.status = this.firstFormGroup.value['status'];
 
-    this.mailService.save(mail).subscribe(()=>{
-      this.saved = true;
+    this.mailService.save(mail).subscribe((response: Mail) =>{
+      if (response?.id) {
+        this.saved = true;
+        this.mailId = response.id;
+        this.mailSaved = response;
+        console.log("Mail guardado con ID:", this.mailId);
+      } else {
+        console.error("Error: No se recibió un ID del mail guardado");
+      }
+    }, error => {
+      console.error("Error al guardar el mail:", error);
     });
 
 
 
     setTimeout(()=>{
-      this.cleanControls();
       this.mailService.setMessageChange('CREATE!');
       this.nextManualStep();
     }, 2000);
@@ -156,5 +230,13 @@ export class MailComponent implements OnInit{
     this.supplier = [];
     this.project = [];
     //this.paymentAgreement$ = null;
+  }
+
+  get f(){
+    return this.firstFormGroup.controls;
+  }
+
+  getFileName(filePath: string): string {
+    return filePath.split('\\').pop()?.split('_').pop()?.split('/').pop() || 'Archivo desconocido';
   }
 }

@@ -104,6 +104,29 @@
     <ng-template matStepLabel>Attachments</ng-template>
     <form [formGroup]="secondFormGroup">
 
+        <div (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+          <input type="file" #fileInput multiple (change)="onFileSelected($event)" hidden>
+          <button mat-raised-button (click)="fileInput.click()">Seleccionar archivos</button>
+        </div>
+
+      <div class="file-list">
+        @if(uploadedFiles.length > 0) {
+          @for (file of uploadedFiles; track $index) {
+            <mat-card>
+              <mat-icon>attach_file</mat-icon> {{file.name}}
+              <button mat-icon-button color="warn" (click)="removeFile($index)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </mat-card>
+          }
+        }
+      </div>
+
+      <div class="button-container">
+        <button mat-raised-button class="upload-button" color="accent" type="button" (click)="uploadFiles()">
+          Subir Archivos
+        </button>
+      </div>
 
       <button mat-raised-button class="fixedLeft" color="primary" type="button" style="float: left" matStepperPrevious>Previous</button>
       <button mat-raised-button class="fixedRigth" color="primary" type="button" style="float: right" matStepperNext>Next</button>
@@ -114,7 +137,7 @@
   <mat-step>
     <ng-template matStepLabel>Review</ng-template>
 
-    <h3>Destinatary: {{f['idRecipients']?.value?.name + '' + f['idRecipients']?.value?.lastName}}</h3>
+    <h3>Destinatary: {{ f['idRecipients']?.value ? (f['idRecipients'].value.name + ' ' + f['idRecipients'].value.lastName) : 'No seleccionado' }}</h3>
     <h3>Mailing Group (CC): {{f['mailingGroup']?.value?.nameGroup}}</h3>
     <h3>Bill: {{f['bill']?.value}}</h3>
     <h3>Priority: {{f['priority']?.value}}</h3>
@@ -122,6 +145,20 @@
     <h3>Project: {{f['project']?.value?.name}}</h3>
     <h3>Payment Agreement: {{f['paymentAgreement']?.value?.description}}</h3>
     <h3>Observation: {{f['observation']?.value}}</h3>
+
+    <h3>Attachments:</h3>
+    <ul>
+      @if(mailSaved?.attachments?.length > 0) {
+        @for (file of mailSaved.attachments; track $index) {
+          <li>
+            <mat-icon>attach_file</mat-icon>
+            {{ getFileName(file.routeAttachment) }}
+          </li>
+        }
+      } @else {
+        <p>No hay archivos adjuntos</p>
+      }
+    </ul>
 
     <button mat-raised-button class="fixedLeft" color="primary" type="button" style="float: left" matStepperPrevious>Previous</button>
   </mat-step>

@@ -10,6 +10,8 @@ import { RecipientsEditComponent } from "./recipients/recipients-edit/recipients
 import { MailingGroupComponent } from "./mailing-group/mailing-group.component";
 import { MailingGroupEditComponent } from "./mailing-group/mailing-group-edit/mailing-group-edit.component";
 import { MailComponent } from "./mail/mail.component";
+import { SearchComponent } from "./search/search.component";
+import { ReportComponent } from "./report/report.component";
 
 export const pagesRoutes: Routes = [
   {
@@ -22,8 +24,9 @@ export const pagesRoutes: Routes = [
   },
 
   {path: 'supplier', component: SupplierComponent},
-
   {path: 'mail', component: MailComponent},
+  {path: 'report', component: ReportComponent},
+  {path: 'search', component: SearchComponent},
 
   {
     path: 'payment',

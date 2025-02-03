@@ -63,7 +63,7 @@ export class MailingGroupEditComponent implements OnInit {
         this.objDestinataries = this.convertToObject(data.recipientIds);
         console.log(this.objDestinataries);
         this.form = new FormGroup({
-          idMailingGroup: new FormControl(data.idMailingGroup),
+          idMailingGroup: new FormControl(data.id),
           nameGroup: new FormControl(data.nameGroup, [Validators.required, Validators.minLength(3)]),
           recipientIds: new FormControl('', [Validators.required]),
           description: new FormControl(data.description, [Validators.required, Validators.minLength(3)]),
@@ -85,7 +85,7 @@ export class MailingGroupEditComponent implements OnInit {
     if(this.invalid){return;}
     const mailingGroup: MailingGroup = new MailingGroup();
 
-    mailingGroup.idMailingGroup = this.form.value['idMailingGroup'];
+    mailingGroup.id = this.form.value['idMailingGroup'];
     mailingGroup.nameGroup = this.form.value['nameGroup'];
     mailingGroup.recipientIds = this.convertToIds(this.objDestinataries);
     mailingGroup.description = this.form.value['description'];
