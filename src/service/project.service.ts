@@ -18,28 +18,6 @@ export class ProjectService extends GenericService<Project> {
     super(http, `${environment.HOST}/api/project`);
   }
 
-  /*constructor(private http: HttpClient) { }
-
-  finAll(){
-    return this.http.get<Project[]>(`${this.url}/findAll`);
-  }
-
-  findById(id: number){
-    return this.http.get<Project>(`${this.url}/find/${id}`);
-  }
-
-  save(project: Project){
-    return this.http.post(`${this.url}/save`, project);
-  }
-
-  update(id: number, project: Project){
-    return this.http.put(`${this.url}/update/${id}`, project);
-  }
-
-  delete(id: number){
-    return this.http.delete(`${this.url}/delete/${id}`);
-  }*/
-
   setProjectChange(data: Project[]){
     this.projectChange.next(data);
   }

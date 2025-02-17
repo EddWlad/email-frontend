@@ -1,12 +1,14 @@
 import { ChartType, TypedRegistry } from './../../../../node_modules/chart.js/dist/types/index.d';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { MaterialModule } from '../../material/material.module';
 import { MailService } from '../../../service/mail.service';
 import { Chart} from 'chart.js/auto';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-report',
-  imports: [MaterialModule],
+  imports: [MaterialModule, PdfViewerModule],
   templateUrl: './report.component.html',
   styleUrl: './report.component.css'
 })
@@ -19,9 +21,18 @@ export class ReportComponent implements OnInit{
   radartype: ChartType = 'radar';
   pietype: ChartType = 'pie';
 
+  pdfSrc: string;
+  fileName: string;
+
+  selectedFiles: FileList;
+
+  imageData: any;
+
+  imageSignal = signal(null);
 
   constructor(
-    private mailService: MailService
+    private mailService: MailService,
+    private sanitizer: DomSanitizer
   ) {
 
   }
@@ -29,6 +40,7 @@ export class ReportComponent implements OnInit{
     this.draw();
   }
 
+  // Casos para cambiar el estilo del dasboard
   change(type: string){
     switch(type){
       case 'line':
@@ -57,6 +69,27 @@ export class ReportComponent implements OnInit{
     this.draw();
   }
 
+  //Ver reporte PDF
+  viewReport(){
+    this.mailService.generateReport().subscribe(data =>{
+      this.pdfSrc = window.URL.createObjectURL(data);
+    });
+  }
+  //Descargar reporte en PDF
+  downloadReport(){
+    this.mailService.generateReport().subscribe(data => {
+      const url = window.URL.createObjectURL(data);
+      //console.log(url);
+      const a = document.createElement('a');
+      a.setAttribute('style', 'display: none');
+      document.body.appendChild(a);
+      a.href = url;
+      a.download ='report.pdf';
+      a.click();
+    });
+  }
+
+  //Dibujar dashboard
   draw() {
     this.mailService.callProcedureOrFunction().subscribe(data => {
       const dates = data.map(x => x.maildate);
@@ -98,6 +131,37 @@ export class ReportComponent implements OnInit{
         },
       });
     });
+  }
+
+  //imagenes
+  selectFile(e: any){
+    this.fileName = e.target.files[0]?.name;
+    this.selectedFiles = e.target.files;
+  }
+
+  upload(){
+    this.mailService.saveFile(this.selectedFiles.item(0)).subscribe();
+  }
+
+  viewImage(){
+    this.mailService.readFile(2).subscribe(data => {
+      this.convertToBase64(data);
+    });
+  }
+
+  convertToBase64(data: any){
+    const reader = new FileReader();
+    reader.readAsDataURL(data)
+    reader.onloadend = () => {
+      const base64 = reader.result;
+      //console.log(base64);
+      this.applySanitizer(base64);
+    };
+  }
+
+  applySanitizer(base64: any){
+    this.imageData = this.sanitizer.bypassSecurityTrustResourceUrl(base64);
+    this.imageSignal.set(this.imageData);
   }
 
 }

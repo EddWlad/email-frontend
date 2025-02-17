@@ -54,7 +54,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
-  <mat-paginator [pageSizeOptions]="[2, 5, 25, 100]" aria-label="Select page of recipients"></mat-paginator>
+  <mat-paginator [pageSizeOptions]="[2, 5, 20, 100]" [length]="totalElements" (page)="showMore($event)" aria-label="Select page of recipients"></mat-paginator>
 
   <button mat-fab color="primary" style="float: right;" routerLink="/pages/recipients/new">
     <mat-icon>add</mat-icon>

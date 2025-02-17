@@ -32,4 +32,8 @@ export class RecipientsService extends GenericService<Recipients> {
        getMessageChange(){
          return this.messageChange.asObservable();
        }
+
+       listPageable(p: number, s: number){
+         return this.http.get<any>(`${environment.HOST}/api/recipients/pageable?page=${p}&size=${s}`);
+       }
 }

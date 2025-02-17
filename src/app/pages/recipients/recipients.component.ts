@@ -24,6 +24,8 @@ export class RecipientsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  totalElements: number = 0;
+
   constructor(
     private recipientsService: RecipientsService,
     private _snackBar: MatSnackBar,
@@ -31,8 +33,13 @@ export class RecipientsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+    this.recipientsService.listPageable(0, 2).subscribe(data => {
+      this.createTable(data.content);
+      this.totalElements = data.totalElements;
+    });
     this.recipientsService.getRecipientsChange().subscribe(data => this.createTable(data));
-    this.recipientsService.findAll().subscribe(data => this.createTable(data));
+    //this.recipientsService.findAll().subscribe(data => this.createTable(data));
     this.recipientsService.getMessageChange().subscribe(data => this._snackBar.open(data, 'INFO', {duration: 2000}))
   }
 
@@ -51,12 +58,20 @@ export class RecipientsComponent implements OnInit {
 
   createTable(data: Recipients[]){
     this.dataSource = new MatTableDataSource(data);
-    this.dataSource.paginator = this.paginator;
+    //this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
   checkChildren(): boolean{
     return this.route.children.length > 0;
+  }
+
+
+  showMore(e: any){
+    this.recipientsService.listPageable(e.pageIndex, e.pageSize).subscribe(data => {
+      this.createTable(data.content);
+      this.totalElements = data.totalElements;
+    });
   }
 
 }

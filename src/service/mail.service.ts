@@ -65,4 +65,19 @@ export class MailService extends GenericService<Mail> {
     return this.http.get<any>(`${environment.HOST}/api/mail/callProcedureNative`);
   }
 
+  generateReport(){
+    return this.http.get(`${environment.HOST}/api/mail/generateReport`, { responseType: 'blob' });
+  }
+
+  //files images
+  saveFile(data: File){
+    const formData: FormData= new FormData;
+    formData.append('file', data);
+    return this.http.post(`${environment.HOST}/api/mail/saveFile`, formData)
+  }
+
+  readFile(id: number){
+    return this.http.get(`${environment.HOST}/api/mail/readFile/${id}`, { responseType: 'blob' })
+  }
+
 }
