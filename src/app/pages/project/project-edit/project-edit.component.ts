@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { MaterialModule } from '../../../material/material.module';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { ProjectService } from '../../../../service/project.service';
+import { ProjectService } from '../../../../services/project.service';
 import { Project } from '../../../model/project';
 import { switchMap } from 'rxjs';
 

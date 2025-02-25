@@ -3,7 +3,7 @@ import { MaterialModule } from '../../material/material.module';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { PaymentAgreement } from '../../model/paymentAgreement';
 import { MatTableDataSource } from '@angular/material/table';
-import { PaymentService } from '../../../service/payment.service';
+import { PaymentService } from '../../../services/payment.service';
 import { switchMap } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';

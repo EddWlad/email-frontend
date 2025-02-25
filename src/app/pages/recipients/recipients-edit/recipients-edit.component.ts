@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MaterialModule } from '../../../material/material.module';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RecipientsService } from '../../../../service/recipients.service';
+import { RecipientsService } from '../../../../services/recipients.service';
 import { Recipients } from '../../../model/recipients';
 import { switchMap } from 'rxjs';
 

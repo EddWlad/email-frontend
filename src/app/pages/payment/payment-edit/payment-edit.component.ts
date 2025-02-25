@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MaterialModule } from '../../../material/material.module';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { PaymentService } from '../../../../service/payment.service';
+import { PaymentService } from '../../../../services/payment.service';
 import { PaymentAgreement } from '../../../model/paymentAgreement';
 import { switchMap } from 'rxjs';
 

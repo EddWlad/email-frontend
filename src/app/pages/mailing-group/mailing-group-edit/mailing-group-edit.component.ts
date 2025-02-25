@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MaterialModule } from '../../../material/material.module';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { MailingGroupService } from '../../../../service/mailing-group.service';
+import { MailingGroupService } from '../../../../services/mailing-group.service';
 import { MailingGroup } from '../../../model/mailingGroup';
 import { switchMap } from 'rxjs';
-import { RecipientsService } from '../../../../service/recipients.service';
+import { RecipientsService } from '../../../../services/recipients.service';
 import { Recipients } from '../../../model/recipients';
 
 

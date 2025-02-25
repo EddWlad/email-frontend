@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Supplier } from '../../model/supplier';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { SupplierService } from '../../../service/supplier.service';
+import { SupplierService } from '../../../services/supplier.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SupplierDialogComponent } from './supplier-dialog/supplier-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';

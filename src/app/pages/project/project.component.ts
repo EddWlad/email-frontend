@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ProjectService } from '../../../service/project.service';
+import { ProjectService } from '../../../services/project.service';
 import { Project } from '../../model/project';
 import { MaterialModule } from '../../material/material.module';
 import { MatTableDataSource } from '@angular/material/table';

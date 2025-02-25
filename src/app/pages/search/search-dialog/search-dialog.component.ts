@@ -3,7 +3,7 @@ import { MaterialModule } from '../../../material/material.module';
 import { Mail } from '../../../model/mail';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
-import { MailService } from '../../../../service/mail.service';
+import { MailService } from '../../../../services/mail.service';
 import { MailingGroup } from '../../../model/mailingGroup';
 
 @Component({

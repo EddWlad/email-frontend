@@ -4,7 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatTabGroup } from '@angular/material/tabs';
 import { format } from 'date-fns';
 import { FilterMailDTO } from '../../model/filterMailDTO';
-import { MailService } from '../../../service/mail.service';
+import { MailService } from '../../../services/mail.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { Mail } from '../../model/mail';
 import { MatPaginator } from '@angular/material/paginator';

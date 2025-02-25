@@ -5,18 +5,18 @@ import { MailingGroup } from '../../model/mailingGroup';
 import { Supplier } from '../../model/supplier';
 import { Project } from '../../model/project';
 import { PaymentAgreement } from '../../model/paymentAgreement';
-import { MailingGroupService } from '../../../service/mailing-group.service';
-import { SupplierService } from '../../../service/supplier.service';
-import { ProjectService } from '../../../service/project.service';
-import { PaymentService } from '../../../service/payment.service';
+import { MailingGroupService } from '../../../services/mailing-group.service';
+import { SupplierService } from '../../../services/supplier.service';
+import { ProjectService } from '../../../services/project.service';
+import { PaymentService } from '../../../services/payment.service';
 import { Recipients } from '../../model/recipients';
-import { RecipientsService } from '../../../service/recipients.service';
+import { RecipientsService } from '../../../services/recipients.service';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { MatStepper } from '@angular/material/stepper';
 import { Mail } from '../../model/mail';
 import { format } from 'date-fns';
-import { MailService } from '../../../service/mail.service';
+import { MailService } from '../../../services/mail.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({

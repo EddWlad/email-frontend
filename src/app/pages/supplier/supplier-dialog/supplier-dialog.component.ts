@@ -3,7 +3,7 @@ import { MaterialModule } from '../../../material/material.module';
 import { Supplier } from '../../../model/supplier';
 import { FormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { SupplierService } from '../../../../service/supplier.service';
+import { SupplierService } from '../../../../services/supplier.service';
 import { switchMap } from 'rxjs';
 
 @Component({

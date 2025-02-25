@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { RecipientsService } from '../../../service/recipients.service';
+import { RecipientsService } from '../../../services/recipients.service';
 import { switchMap } from 'rxjs';
 
 @Component({

@@ -1,7 +1,7 @@
 import { ChartType, TypedRegistry } from './../../../../node_modules/chart.js/dist/types/index.d';
 import { Component, OnInit, signal } from '@angular/core';
 import { MaterialModule } from '../../material/material.module';
-import { MailService } from '../../../service/mail.service';
+import { MailService } from '../../../services/mail.service';
 import { Chart} from 'chart.js/auto';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { DomSanitizer } from '@angular/platform-browser';
